@@ -1,0 +1,368 @@
+/*
+	Red: #AB1A25;
+	Orange: #D97925;
+	Dark Blue: #002635;
+	Light Grey: #EFE7BE;
+
+
+*/
+
+html, body{
+	height:100%;
+	overflow: hidden
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+ul{
+	text-decoration: none;
+	padding:0px;
+}
+
+li{
+	list-style: none;
+}
+header {
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	min-height: 60px;
+	background-color:#AB1A25;
+	z-index: 1010;
+
+	-webkit-box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+
+	-moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none;
+}
+
+button{
+	background-color:transparent;
+}
+
+
+.logo{
+	display:inline-block;
+	font-family: "Brush Script MT",cursive;
+	color:white;
+	font-size: 3.5em;
+	font-weight: bold;
+
+	width:10%;
+	margin-left:45%;
+	padding:5px;
+}
+
+.btn-signup{
+	background-color:transparent;
+	color:#002635;
+	border: 1px solid #002635;
+	font-size:1.2em;
+	
+}
+
+.btn-signup:hover{
+	color:#002635;
+}
+
+.btn-login{
+	background-color:transparent;
+	color:#013440;
+	border: 1px solid #013440;
+	font-size:1.2em;
+}
+
+.btn:active{
+	background-color:#D97925;
+}
+
+#side-header{
+	display:inline-block;
+}
+.jumbotron{
+	background-color: #EFE7BE;
+}
+
+.sidebar{
+	position:fixed;
+	width:300px;
+	height:calc(100% - 71px);
+	z-index: 1010;
+	top:71px;
+	background-color:#002635;
+	-webkit-box-shadow: 4px 0px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 4px 0px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 4px 0px 5px 0px rgba(0,0,0,0.75);
+	margin-left:-300px;
+
+	transition:0.5s;
+}
+
+.sidebar ul{
+	width:100%;
+}
+
+.sidebar ul li{
+	width:100%;
+	padding:10px;
+	color:white;
+	font-size:1.5em;
+	border-bottom:1px solid white;
+	cursor: pointer;
+}
+
+.sidebar ul li:active{
+	color: #AB1A25;
+}
+
+.sidebar ul li i{
+	text-align: left;
+}
+
+.sidebar ul li span{
+	margin-left:5%;
+	text-align: right;
+	font-size: 0.75em;
+}
+
+.home-slider{
+	width:100%;
+	clear:both;
+	overflow:hidden;
+	display:box;
+	white-space: nowrap;
+
+}
+
+.home-slider p {
+	white-space: pre-wrap;
+}
+.home-attribute{
+	display: inline-block;
+	width:100%;
+	transition:1s;
+}
+
+.home-icon{
+	width:25%;
+	text-align: right;
+	display:inline-block;
+	font-size:2.5em;
+	margin-left:15%;
+}
+
+.home-text{
+	width:30%;
+	display: inline-block;
+	margin-left:5%;
+}
+
+.slider-button-container{
+	position:relative;
+	width:20%;
+	margin:50px auto 0px auto;
+	height:20px;
+}
+
+.slider-button{
+	width:30%;
+	height:20%;
+	display:inline-block;
+	background-color:#D97925;
+}
+
+.button-active{
+	background-color:#002635;
+}
+
+.error-text{
+	width:100%;
+	display:none;
+	color:#AB1A25;
+}
+
+.error-text textarea{
+	width:100%;
+	font-size:0.8em;
+	height:auto;
+	border:none;
+	resize:none;
+}
+
+.main-container{
+	margin-top:72px;
+}
+
+.header-sidebar{
+	display:inline-block;
+	width:10%;
+	margin-left:2%;
+	font-size:3em;
+	color:white;
+}
+
+.header-sidebar:active{
+	color:#002635;
+}
+
+.main-logo{
+	display:inline-block;
+
+	font-family: "Brush Script MT",cursive;
+	color:white;
+	font-size: 3.5em;
+	font-weight: bold;
+
+	width:10%;
+	margin-left:33%;
+	padding:5px;
+}
+
+.side-header{
+	display:inline-block;
+	color:white;
+	width:20%;
+	text-align: right;
+	margin-left:20%;
+}
+
+.search-bar{
+	display:inline-block;
+	margin-top:10px;
+	padding-bottom:15px;
+	border-bottom:1px solid #D97925;;
+	width:100%;
+
+	-moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none;
+}
+
+.search-bar input{
+	display: inline-block;
+	width:50%;
+	margin-left:5%;
+	padding:10px;
+	vertical-align: top;
+}
+
+.alfred{
+	display:inline-block;
+	text-align: center;
+	width:5%;
+	border:1px solid black;
+	font-size:1.7em;
+	padding:5px 2px;
+	margin-left:15%;
+}
+
+.alfred:active{
+	background-color:#EFE7BE;
+}
+
+.search-button{
+	display:inline-block;
+	text-align: center;
+	width:5%;
+	border:1px solid black;
+	font-size:1.7em;
+	padding:5px 2px;
+	margin-left:2%;
+}
+
+.search-button:active{
+	background-color:#EFE7BE;
+}
+
+#card{
+	width:100%;
+	height:582px;
+}
+
+.front{
+	height:inherit;
+}
+
+.back{
+	height:inherit;
+	padding:30px;
+	overflow: scroll;
+}
+
+.angular-google-map-container{ 
+	height: 100px;
+	width:100px; 
+	position:absolute;
+}
+
+.info-restaurant-name{
+	font-weight:bold;
+	font-size:1.3em;
+}
+
+.infoWindow{
+	-moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none;
+}
+
+.infoWindow div{
+	margin-top:5px;
+}
+
+.restaurant {
+	padding:20px;
+	border-bottom:1px solid #002635;
+	cursor: pointer
+}
+
+.restaurant-pic{
+	display:inline-block;
+	vertical-align: top
+}
+
+.restaurant-main-info{
+	display:inline-block;
+}
+
+#information {
+	margin-top:10px;
+	height:341px;
+}
+
+.information-block{
+	margin-left:1.67%;
+	vertical-align: top;
+	display: inline-block;
+	width:30%;
+	height:inherit;
+	overflow: -moz-scrollbars-vertical; 
+	overflow: scroll;
+}
+
+#placeInformation{
+	font-size: 0.75em;
+	margin-top:15px;
+}
+
+.google-review{
+	margin-bottom:25px;
+}
+
+.yelp{
+	height:100px;
+	background-size:contain;
+}

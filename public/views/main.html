@@ -1,0 +1,76 @@
+<header>
+	<div class='header-sidebar' ng-click='toggleSidebar()'><i class='fa fa-list'></i></div>
+    <div class="main-logo">Alfred</div>
+    <div class='side-header'>
+       Signed in: {{email}}
+    </div>
+</header>
+<div class='sidebar'>
+	<ul class='sidebar-list'>
+		<li class='sidebar-item' ng-click="sidebarRedirect('home')">
+			<i class='fa fa-home'></i>
+			<span>Home</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('profile')">
+			<i class='fa fa-user'></i>
+			<span>Profile</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('restaurant')">
+			<i class='fa fa-cutlery'></i>
+			<span>Last Restaurant Visited</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('favorites')">
+			<i class='fa fa-heart'></i>
+			<span>Favorites</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('settings')">
+			<i class='fa fa-cog'></i>
+			<span>Settings</span>
+		</li>
+		<li class='sidebar-item' ng-click="signOut()">
+			<i class='fa fa-sign-out'></i>
+			<span>Sign Out</span>
+		</li>
+	</ul>
+</div>
+<div class='main-container' ng-click='removeSidebar()'>
+	<div class='search-bar'>
+		<div class='alfred'>
+			<i class="fa fa-microphone"></i>
+		</div>
+		<input type='text' ng-model='searchItem' placeholder='Enter Search Item Here'/>
+		<button type='button' class='search-button' id='search' ng-click='searchRestaurants()' disabled>
+			<i class='fa fa-search'></i>
+		</button>
+		<div class='search-button' ng-click='repeat()' syle='margin-left:5%'>
+			<i class="fa fa-step-backward"></i>
+		</div>
+		<div class='search-button' id='flip' ng-click='flip()' style='margin-left:5%%' disabled>
+			<i class='fa fa-repeat'></i>
+		</div>
+	</div>
+	<div id='card'>
+		<div class='front' id='map'>
+		</div>
+		<div class='back' id='list'>
+			<div ng-repeat='restaurant in restaurants | orderBy: restaurant.rating' ng-click='loadRestaurant(restaurant)' class='restaurant'>
+				<div class='row'>
+					<div class='restaurant-pic'>
+						<img src='{{restaurant.icon}}' alt='Restaurant Icon'/>
+					</div>
+					<div class='restaurant-main-info'>
+						<p><b>{{restaurant.name}}</b></p>
+						<p>{{restaurant.formatted_address}}</p>
+						<p ng-if='restaurant.opening_hours.open_now != null'>Open Now: <i>{{isOpen(restaurant.opening_hours.open_now)}}</i></p>
+						<div style='display:inline-block'>
+							<i ng-repeat='star in getNumber(restaurant.rating) track by $index' class='fa fa-star'></i>
+							({{restaurant.rating}})
+						</div>
+					</div>
+				</div>
+				<div class='row'>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

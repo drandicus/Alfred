@@ -1,0 +1,132 @@
+<header>
+    <div class="logo">Alfred</div>
+</header>
+
+<div style='margin-top:72px'>
+	<div class="jumbotron text-center">
+	    <h1>Welcome to Alfred</h1>
+
+	    <p>The only food butler you will ever need.</p>
+
+	    <div class="row">
+	    	<btn class='btn btn-signup' id='signup'>Sign Up</btn>
+	    	<btn class='btn btn-signup' id='login'>Login</btn>
+	    </div>
+	</div>
+
+	<div class='home-slider' id="home-slider">
+		<div class="home-attribute">
+			<div class='home-icon'>
+				<i class="fa fa-5x fa-microphone"></i>
+			</div>
+			<div class='home-text'>
+				<h3><u>Voice Recognition</u></h3>
+				<br>
+				<p>Alfred is programmed to recieve your voice commands and try to fulfill them to the best of his programmed ability</p>
+				<p>While Alfred grows in age, his skills to butler grow accordingly. He develops new skills and traits that will eventually make him the best butler he can be. Right now, he is in his infancy and with time, that is hopefully going to change</p>
+			</div>
+		</div>
+
+		<div class="home-attribute">
+			<div class='home-icon'>
+				<i class="fa fa-5x fa-cloud"></i>
+			</div>
+			<div class='home-text'>
+				<h3><u>API Integration</u></h3>
+				<br>
+				<p> Alfred takes advantage of external applications to provide you with the most helpful information around the internet. We utilize information gathered from Yelp and Trip Advisor to ensure you with the most up-to-date reviews and information we can get. As Alfred grows he also tries to gather your personal thoughts to add upon this integration as to ensure the best care possible.</p>
+			</div>
+		</div>
+
+		<div class="home-attribute">
+			<div class='home-icon'>
+				<i class="fa fa-5x fa-unlock-alt"></i>
+			</div>
+			<div class='home-text'>
+				<h3><u>Machine Learning</u></h3>
+				<br>
+				<p>Like any good butler, Alfred learns you. He keeps track of your ordering habits to provide you service as quick and as effectively as possible. He tries to anticipate your every need and provide them to you in the quickest fashion possible. He does this by looking through your past trends to try an establish a pattern that might benefit you the most.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="slider-button-container">
+		<div class="slider-button button-active"></div>
+		<div class="slider-button"></div>
+		<div class="slider-button"></div>
+	</div>
+</div>
+
+
+<!-- Signing Up Modal -->
+<div id='signupModal' class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Sign Up</h4>
+      </div>
+      <div class="modal-body">
+      	<div class='error-text'><textarea type='text' ng-model='errorText'/></div>
+        <form class='form' ng-submit='signup()'>
+			<div class="form-group">
+				<label for="firstName">First Name</label>
+				<input type="text" class="form-control" id="firstName" ng-model='firstName' placeholder="First Name">
+			</div>
+			<div class="form-group">
+				<label for="lastName">Last Name</label>
+				<input type="text" class="form-control" id="lastName" ng-model='lastName' placeholder="Last Name">
+			</div>
+        	<div class="form-group">
+				<label for="signupEmail">Email address</label>
+			    <input type="email" class="form-control" id="signupEmail" ng-model='signUpEmail' placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label for="validateEmail">Repeat Email address</label>
+			    <input type="email" class="form-control" id="validateEmail" ng-model='validateEmail' placeholder="Repeat Email">
+			</div>
+			<div class="form-group">
+				<label for="signupPassword">Password</label>
+				<input type="password" class="form-control" id="signupPassword" ng-model='signupPassword' placeholder="Password">
+				<p class="help-block">Your Password must have atleast one number, lowercase letter and uppercase letter</p>
+			</div>
+			
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" ng-click='signup()' id='signinSubmit'>Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Logging In Modal -->
+<div id='loginModal' class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Login</h4>
+      </div>
+      <div class="modal-body">
+      	<form ng-submit='login()'>
+	        <div class="form-group">
+					<label for="loginEmail">Email address</label>
+				    <input type="email" class="form-control" ng-model="loginEmail" id="loginEmail" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<label for="loginPassword">Password</label>
+					<input type="password" class="form-control" ng-model="loginPassword" id="loginPassword" placeholder="Password">
+				</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click='login()' id='loginSubmit'>Login</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
