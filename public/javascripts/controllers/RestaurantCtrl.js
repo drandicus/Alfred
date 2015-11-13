@@ -52,6 +52,7 @@ alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$
 		$('#yelpReviews').html(html);
 	}
 
+	/* This function accesses the Yelp API stored in the server */
 	$scope.accessYelp = function(){
 		var res = $http.post("/api/yelp", $scope.place);
 		res.success(function(response){
@@ -59,9 +60,9 @@ alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$
 		})
 	}
 
+	/* This function generates the html for the google reviews */
 	$scope.displayGoogleReviews = function(){
 		var reviews = $scope.place.reviews;
-		console.log(reviews);
 		var html = "<h3>Google Reviews</h3>"
 		html += "<p><b>Google Rating: </b>" + $scope.place.rating + "</p>";
 
@@ -78,6 +79,7 @@ alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$
 		return html;
 	}
 
+	/* This function generates the html for the schedule portion of the information */
 	$scope.displaySchedule = function(){
 		if(typeof $scope.place.opening_hours == "undefined") return;
 
@@ -93,6 +95,7 @@ alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$
 		return html;
 	}
 
+	/* This function renders the basic information about websites */
 	$scope.renderInformation = function(){
 
 		var html = "";

@@ -254,11 +254,14 @@ alfredApp.controller('homeController', ['$scope', '$http', '$location', '$cookie
 
 	}
 
+	/* This function translates trua or false to "Yes" or "No" */
 	$scope.isOpen = function(open){
 		if(open) return "Yes";
 		return "No";
 	}
 
+
+	/* This function creates an array of the number size */
 	$scope.getNumber = function(num){
 		len = Math.round(num)
 
@@ -268,6 +271,7 @@ alfredApp.controller('homeController', ['$scope', '$http', '$location', '$cookie
 		return new Array(len);
 	}
 
+	/* This function redirects the user to the desired page */
 	$scope.loadRestaurant = function(res){
 		var url = '/restaurant';
 		$cookies.put("restaurantID", res.place_id);
@@ -276,8 +280,8 @@ alfredApp.controller('homeController', ['$scope', '$http', '$location', '$cookie
 		$location.path(url);
 	}
 
+	/* This function runs the last search made by the user */
 	$scope.repeat = function(){
-
 		if(typeof $scope.latestSearch == "undefined") return;
 
 		$scope.searchItem = $scope.latestSearch;
