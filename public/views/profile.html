@@ -1,0 +1,82 @@
+<header>
+	<div class='header-sidebar' ng-click='toggleSidebar()'><i class='fa fa-list'></i></div>
+    <a href=''><div class="main-logo">Alfred</div></a>
+    <div class='side-header'>
+       Signed in: {{name}}
+    </div>
+</header>
+<div class='sidebar'>
+	<ul class='sidebar-list'>
+		<li class='sidebar-item' ng-click="sidebarRedirect('home')">
+			<i class='fa fa-home'></i>
+			<span>Home</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('profile')">
+			<i class='fa fa-user'></i>
+			<span>Profile</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('restaurant')">
+			<i class='fa fa-cutlery'></i>
+			<span>Last Restaurant Visited</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('favorites')">
+			<i class='fa fa-heart'></i>
+			<span>Favorites</span>
+		</li>
+		<li class='sidebar-item' ng-click="sidebarRedirect('settings')">
+			<i class='fa fa-cog'></i>
+			<span>Settings</span>
+		</li>
+		<li class='sidebar-item' ng-click="signOut()">
+			<i class='fa fa-sign-out'></i>
+			<span>Sign Out</span>
+		</li>
+	</ul>
+</div>
+<div class='not-visible'>
+	<div id='map'></div>
+	<img id='onDeck'/>
+</div>
+<div class='main-container profile-page' ng-click='removeSidebar()' style='padding:20px'>
+
+	<!--
+	<div class='profile-welcome profile-slide'>
+		<h2>Profile Page</h2>
+		<p>Unlike most profile pages, we don't particulary care about personal information. We provide you with our machine analysis of your searches to try and let you branch out to places you may have not been to (at least according to our records)</p>
+		<br>
+		<p>Please keep in mind this is still a work in progress and the only information we have is the information you give us.</p>
+		<p>If you have any suggestions, feel free to contact us and enjoy Alfred!</p>
+		<button class='btn btn-signup' style='margin-top:20px'>Proceed</button>
+	</div>
+	-->
+
+	<h1>Hello {{name}}!</h1>
+	<p>Places you haven't visited yet (based on what you've liked/disliked)</p>
+
+	<div class='profile-visited'>
+		<img src='images/ring-alt.gif' class='waiting-gif' id='profile-main-waiting'>
+		<div id='profile-visited-text'></div>
+		<div id='profile-visited-like'>
+			<button class='btn-circle btn-heart' ng-click='placeLike(true); $event.stopPropagation();'><i class="fa fa-heart fa-3x"></i></button>
+			<button class='btn-circle btn-cross' ng-click='placeLike(false); $event.stopPropagation();'><i class="fa fa-times fa-3x"></i></button>
+		</div>
+	</div>
+
+	<div class='profile-personal'>
+		<div class='profile-person-area'>
+			<p style='border-bottom:1px solid black'>Place you might like</p>
+			<div class='profile-places' id='profile-place-like'>
+				<img src='images/ring-alt.gif' class='waiting-gif' id='profile-sub-like'>
+			</div>
+		</div>
+
+		<div class='profile-person-area'>
+			<p style='border-bottom:1px solid black'>Place you should avoid</p>
+			<div class='profile-places' id='profile-place-dislike'>
+				<img src='images/ring-alt.gif' class='waiting-gif' id='profile-sub-dislike'>
+			</div>
+		</div>
+	</div>
+
+	<button class='btn btn-signup' style="width:100%; margin-top:50px" id='loadMore'>Load More Places</button>
+</div>

@@ -2,7 +2,7 @@
 	<div class='header-sidebar' ng-click='toggleSidebar()'><i class='fa fa-list'></i></div>
     <a href=''><div class="main-logo">Alfred</div></a>
     <div class='side-header'>
-       Signed in: {{email}}
+       Signed in: {{name}}
     </div>
 </header>
 <div class='sidebar'>
@@ -35,11 +35,11 @@
 </div>
 <div class='main-container' ng-click='removeSidebar()'>
 	<div class='search-bar'>
-		<div class='alfred'>
+		<div class='alfred' ng-click='startRecording()'>
 			<i class="fa fa-microphone"></i>
 		</div>
-		<input type='text' ng-model='searchItem' placeholder='Enter Search Item Here'/>
-		<button type='button' class='search-button' id='search' ng-click='searchRestaurants()' disabled>
+		<input type='text' ng-model='searchItem' id='searchItem' placeholder='Enter Search Item Here'/>
+		<button type='button' class='search-button' id='search' ng-click='inputCommand()' disabled>
 			<i class='fa fa-search'></i>
 		</button>
 		<div class='search-button' ng-click='repeat()' syle='margin-left:5%'>

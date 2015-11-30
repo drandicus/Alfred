@@ -19,6 +19,11 @@ alfredApp.config(function($routeProvider) {
             controller : 'restaurantController'
         })
 
+        .when('/profile', {
+            templateUrl: 'views/profile.html',
+            controller: 'profileController'
+        })
+
         .otherwise({redirectTo: '/'});
 });
 

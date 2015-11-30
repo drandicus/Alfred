@@ -1,39 +1,24 @@
-alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$cookies', '$routeParams', function($scope, $http, $location, $cookies, $routeParams) {
+alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$cookies', '$rootScope', function($scope, $http, $location, $cookies, $rootScope) {
 	$scope.toggledSidebar = true;
+
 
 	/* This function redirects to the location based on the sidebar navigation */
 	$scope.sidebarRedirect = function(loc){
-		console.log("here");
-		$location.path("/" + loc);
+		$rootScope.sidebarRedirect($location, loc);
 	}
-
 
 	/* This function signs the user out */
 	$scope.signOut = function(){
-		$cookies.remove('email');
-		$cookies.remove('lastSignIn');
-		$location.path("/");
+		$rootScope.signOut($cookies, $location);
 	}
 
 	/* This function allows the sidebar to be displayed or not */
 	$scope.toggleSidebar = function(){
-
-		var sidebarWidth = $('.sidebar').width();
-
-		if($scope.toggledSidebar){
-			$('.sidebar').css('transform', 'translate(' + sidebarWidth +'px , 0%)');
-			$('.header-sidebar').css('color', '#002635')
-		} else {
-			$('.sidebar').css('transform', 'translate(-' + sidebarWidth +'px , 0%)');
-			$('.header-sidebar').css('color', 'white')
-		}
-
-		$scope.toggledSidebar = !$scope.toggledSidebar;
+		$rootScope.toggleSidebar($scope);
 	}
 
 	$scope.removeSidebar = function(){
-		if($scope.toggledSidebar) return;
-		$scope.toggleSidebar();
+		$rootScope.removeSidebar($scope);
 	}
 
 	/* Functionality Begins Here */
@@ -108,12 +93,14 @@ alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$
 		return html;
 	}
 
+	/* This function renders the html calls */
 	$scope.displayInformation = function(){
 		$('#placeInformation').html($scope.renderInformation());
 		$('#googleReviews').html($scope.displayGoogleReviews());
 		$scope.accessYelp();
 	}
 
+	/* This is the callback for the Google Places API */
 	$scope.successCallback = function(place, status) {
 		if(status !== google.maps.places.PlacesServiceStatus.OK){
 			return;
@@ -133,7 +120,7 @@ alfredApp.controller('restaurantController', ['$scope', '$http', '$location', '$
 	    
 	}
 
-
+	/* This function runs when the DOM is laoded */
 	angular.element(document).ready(function(){
 		$scope.email = $cookies.get('email');
 		$scope.restaurantID = $cookies.get('restaurantID');

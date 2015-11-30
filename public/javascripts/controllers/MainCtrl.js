@@ -4,8 +4,9 @@ alfredApp.controller('mainController', ['$scope', '$http', '$location', '$cookie
 	$scope.cookieLastLogin = $cookies.get('lastSignIn');
 
 	/* This function initializes the cookies to allow easier log in */
-	$scope.initializeCookies = function(email){
+	$scope.initializeCookies = function(email, name){
 		$cookies.put('email', email);
+		$cookies.put('name', name);
 		$cookies.put('lastSignIn', Date.now());
 		$location.path("/home");
 	}
@@ -76,7 +77,7 @@ alfredApp.controller('mainController', ['$scope', '$http', '$location', '$cookie
 			function(data, status){
 				if(data.data == "Success"){
 					$('#signupModal').modal('hide');
-					$scope.initializeCookies($scope.signUpEmail);
+					$scope.initializeCookies($scope.signUpEmail, $scope.firstName);
 				} else{
 					alert(data.data);
 				}
@@ -96,11 +97,9 @@ alfredApp.controller('mainController', ['$scope', '$http', '$location', '$cookie
 
 		$http.post('/api/login', data).then(
 			function(data, status){
-				if(data.data == "Success"){
+				if(data.data.status == "Success"){
 					$('#loginModal').modal('hide');
-					$scope.initializeCookies($scope.loginEmail);
-				} else {
-					alert(data.data);
+					$scope.initializeCookies($scope.loginEmail, data.data.name);
 				}
 			}, function(){
 				alert("Logging in Process Interrupted, Please Try Again");

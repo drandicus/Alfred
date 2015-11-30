@@ -1,3 +1,8 @@
+/*
+  MOST OF THE SCAFFOLDING IS DONE USING EXPRESS GENERATE - AN NPM COMMAND THAT GENERATED THE BASE FOR
+  THIS APP.JS
+*/
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -42,6 +47,7 @@ app.use('/api', api);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
+  console.log(req);
   err.status = 404;
   next(err);
 });
@@ -50,6 +56,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
+/*
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -69,6 +76,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+*/
 
 
 module.exports = app;

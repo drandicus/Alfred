@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var UserInformation = require('../models/userInformation');
 var bCrypt = require('bcrypt-nodejs');
 
 /* Compares the encrypted password  */
@@ -28,8 +29,6 @@ router.post('/signup', function(req, res){
         }
 
         var newUser = new User();
-
-        // set the user's local credentials
         newUser.email = email;
         newUser.password = createHash(req.body['password']);
         newUser.firstName = req.body['firstName'];
@@ -65,7 +64,11 @@ router.post('/login', function(req, res){
         	return;
         }
 
-        res.send("Success");
+        var response = {
+            status: "Success",
+            name: user.firstName
+        }
+        res.send(response);
 	});
 })
 
@@ -101,7 +104,91 @@ router.post('/yelp', function(req, res){
             res.send(data.reviews[0]);
         })
     })
-
 });
+
+
+function addInformation(res, info, isLike){
+    var newInformation = new UserInformation();
+    newInformation.user = info.user;
+    newInformation.place = info.place;
+    newInformation.liked = isLike;
+
+    newInformation.save(function(err){
+        if(err){
+            throw err;
+        }
+
+        res.send("200");
+    })
+}
+
+/*
+    This function adds a place to the list of users likes
+*/
+router.post('/like', function(req, res){
+    var newInformation = new UserInformation();
+    newInformation.user = req.body.user;
+    newInformation.place = req.body.place;
+    newInformation.rating = req.body.rating;
+    newInformation.type = req.body.type;
+    newInformation.liked = true;
+
+    newInformation.save(function(err){
+        if(err){
+            throw err;
+        }
+
+        res.send("200");
+    })
+})
+
+
+/*
+    This function adds a place to the list of users dislikes
+*/
+router.post('/dislike', function(req, res){
+    var newInformation = new UserInformation();
+    newInformation.user = req.body.user;
+    newInformation.place = req.body.place;
+    newInformation.rating = req.body.rating;
+    newInformation.type = req.body.type;
+    newInformation.liked = false;
+
+    newInformation.save(function(err){
+        if(err){
+            throw err;
+        }
+
+        res.send("200");
+    })
+})
+
+/*
+    This funtion gets the information about a single user
+    The only reason its a post is cause of Angular BS
+*/
+router.post('/userInformation/', function(req, res){
+    var email = req.body["email"];
+
+    UserInformation.find({user: email}, function(err, information){
+        if(err){
+            throw err;
+        }
+        res.send(information);
+    })
+})
+
+/*
+    Tester Function that just dumps the DB
+*/
+router.post('/testInformation/', function(req, res){
+   UserInformation.find({}, function(err, information){
+        if(err){
+            throw err;
+        }
+        res.send(information);
+    })
+
+})
 
 module.exports = router;
