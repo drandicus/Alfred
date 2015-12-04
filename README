@@ -1,0 +1,10 @@
+To run this do the following:
+
+ 1) Start the Mongo Server and direct the path to the /data folder on Alfred (mongod --dbpath /[PATH_TO_ALFRED]/data
+ 2) Start the node server (npm start)
+
+To Test
+ 1) Jasmine testing is automatically enabled in the browser, to disable, comment out.
+ 2) Protractor Testing:
+  a) Start the Selenium Server (webdriver-manager start)
+  b) Run Protractor in the test directory (protractor test/conf.js)

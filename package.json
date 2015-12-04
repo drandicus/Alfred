@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "angular": "^1.4.8",
+    "angular-mocks": "^1.4.8",
     "bcrypt": "^0.8.5",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
@@ -15,6 +17,7 @@
     "express": "~4.13.1",
     "express-session": "^1.12.1",
     "jade": "^1.11.0",
+    "jasmine-core": "^2.3.4",
     "method-override": "^2.3.5",
     "mongoose": "^4.2.3",
     "morgan": "~1.6.1",
@@ -22,5 +25,8 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0",
     "yelp": "^0.2.0"
+  },
+  "devDependencies": {
+    "karma": "^0.13.15"
   }
 }

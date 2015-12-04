@@ -308,7 +308,6 @@ alfredApp.controller('homeController', ['$scope', '$http', '$location', '$cookie
 	*/
 	$scope.recognitionOnEnd = function(){
 		$scope.recognizing = false;
-		console.log($scope.searchItem);
 		$scope.inputCommand();
 	}
 
@@ -496,18 +495,7 @@ alfredApp.controller('homeController', ['$scope', '$http', '$location', '$cookie
 		$cookies.put("restaurantID", res.place_id);
 		$cookies.put("restaurantName", res.name);
 
-		var data = {
-			email: $scope.email,
-			restaurantID: res.place_id
-		}
-
-		$http.post("/api/saveResult", data).then(function(data, status){
-			if(data.data == "Success"){
-				$scope.$apply($location.path(url));
-			}
-		}, function(){
-			$scope.$apply($location.path(url));
-		})
+		$scope.$apply($location.path(url));
 		
 	}
 

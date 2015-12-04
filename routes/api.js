@@ -106,22 +106,6 @@ router.post('/yelp', function(req, res){
     })
 });
 
-
-function addInformation(res, info, isLike){
-    var newInformation = new UserInformation();
-    newInformation.user = info.user;
-    newInformation.place = info.place;
-    newInformation.liked = isLike;
-
-    newInformation.save(function(err){
-        if(err){
-            throw err;
-        }
-
-        res.send("200");
-    })
-}
-
 /*
     This function adds a place to the list of users likes
 */
@@ -189,6 +173,15 @@ router.post('/testInformation/', function(req, res){
         res.send(information);
     })
 
+})
+
+/*
+    Test API call to delete the information from the DB
+*/
+router.delete('/deleteInformation', function(req, res){
+    UserInformation.remove({}, function(err){
+        res.send("DONE");
+    })
 })
 
 module.exports = router;

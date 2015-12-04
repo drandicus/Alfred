@@ -383,6 +383,9 @@ button{
 	height:250px;
 	background-size: cover;
 	background-position:center center;
+	-webkit-box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
 }
 
 .profile-welcome{
@@ -431,7 +434,7 @@ button{
 	margin-top:10px;
 	margin-left:30px;
 	border-radius:90%;
-	border:1px solid white;
+	border:1px solid #d8d8d8;
 }
 
 .btn-circle:focus{

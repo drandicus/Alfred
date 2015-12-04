@@ -75,8 +75,11 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 
 		$cookies.put('tolerance', $scope.tolerance);
 
-		$scope.buildUserProfile();
+		$scope.userProfile = $scope.buildUserProfile($scope.visited, $scope.liked);
 		$scope.processResults();
+		$scope.loadNearby();
+		$scope.loadLikes();
+		$scope.loadDislikes();
 	}
 
 	/*
@@ -136,6 +139,7 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 
 	$scope.displayEmpty = function(){
 		alert("All nearby places explored");
+
 	}
 
 	/*
@@ -278,10 +282,6 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 				$scope.predictedDislike.push($scope.unvisitedPlaces[index]);
 			}
 		}
-
-		$scope.loadNearby();
-		$scope.loadLikes();
-		$scope.loadDislikes();
 	}
 
 	/*
@@ -303,6 +303,9 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 				});
 			}
 			$scope.processResults();
+			$scope.loadNearby();
+			$scope.loadLikes();
+			$scope.loadDislikes();
 		}
 	}
 
@@ -323,8 +326,8 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 		This function builds a simple classifier based on the users information
 		The information is calculated through the data the user inputed
 	*/
-	$scope.buildUserProfile = function(){
-		$scope.userProfile = {
+	$scope.buildUserProfile = function(visited, liked){
+		var userProfile = {
 			meanLikedRating: -1,
 			aggregateLikedTypes: [],
 			aggregatedDislikedTypes: []
@@ -332,30 +335,35 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 
 		var types = {};
 
-		for(var likeIndex = 0; likeIndex < $scope.visited; likeIndex ++){
-			var visitedTypes = $scope.visited[likeIndex].type;
 
-			var adder = $scope.visited[likeIndex].liked == true ? 1 : -1
+		for(var likeIndex = 0; likeIndex < visited.length; likeIndex ++){
+			var visitedTypes = visited[likeIndex].type;
+
+			var adder = visited[likeIndex].liked == true ? 1 : -1
 			for(var typeIndex = 0; typeIndex < visitedTypes.length; typeIndex++){
 				if(visitedTypes[typeIndex] in types){
 					types[visitedTypes[typeIndex]] += adder;
 				} else {
-					types[visitedTypes[typeIndex]] += adder;
+					types[visitedTypes[typeIndex]] = adder;
 				}
 			}
 		}
+
+		console.log(types);
 
 		for(var type in types){
 			if(types.hasOwnProperty(type)){
 				if(types[type] > 0){
-					$scope.userProfile.aggregateLikedTypes.push(type);
+					userProfile.aggregateLikedTypes.push(type);
 				} else {
-					$$scope.userProfile.aggregatedDislikedTypes.push(type);
+					userProfile.aggregatedDislikedTypes.push(type);
 				}
 			}
 		}
 
-		$scope.userProfile.meanLikedRating = $scope.findMean($scope.liked);
+		userProfile.meanLikedRating = $scope.findMean($scope.liked);
+
+		return userProfile;
 
 	}
 
@@ -378,7 +386,7 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 			}
 		}
 
-		$scope.buildUserProfile();
+		$scope.userProfile = $scope.buildUserProfile($scope.visited, $scope.liked);
 
 		var request = {
 			location: new google.maps.LatLng($scope.coord.lat, $scope.coord.lng),
@@ -416,10 +424,182 @@ alfredApp.controller('profileController', ['$scope', '$http', '$location', '$coo
 		$http.post("/api/userInformation", {
 			email: $scope.email
 		}).then(function(data, status){
-			console.log(data);
 			$scope.parseData(data.data);
 		})
 		
 	});
 
+
+	/*
+		Here is my Jasmine Testing. It is here because putting it elsewhere is the worst thing in th world and makes
+		my life insanely complicated.
+
+		For some reason, Jasmine only runs a fraction of the time. Therefore if it shows 0 specs run, keep refreshing.
+		This is a bug I do not know how to fix.
+	*/
+	describe("Building User Profile Test", function(){
+
+		it("should have 0 liked and 5 disliked on this run", function(){
+			var testData = [
+				{
+					place: "1",
+					type: ["a", "c"],
+					liked: true
+				},
+				{
+					place: "2",
+					type: ["d", "e", "f"],
+					liked: true
+				},
+				{
+					place: "3",
+					type: ["a", "c", "d"],
+					liked: false
+				},
+				{
+					place: "4",
+					type: ["a", "e", "f"],
+					liked: false
+				}
+			];
+			var userProfile = $scope.buildUserProfile(testData, []);
+			expect(userProfile.aggregateLikedTypes.length).toBe(0);
+			expect(userProfile.aggregatedDislikedTypes.length).toBe(5);
+		})
+
+		it("should have 6 liked and 0 disliked on this run", function(){
+			var testData = [
+				{
+					place: "1",
+					type: ["a", "b", "c"],
+					liked: true
+				},
+				{
+					place: "2",
+					type: ["d", "e", "f"],
+					liked: true
+				},
+				{
+					place: "3",
+					type: ["a", "c", "d"],
+					liked: true
+				},
+				{
+					place: "4",
+					type: ["a", "e", "f"],
+					liked: true
+				}
+			];
+			var userProfile = $scope.buildUserProfile(testData, []);
+			console.log(userProfile)
+			expect(userProfile.aggregateLikedTypes.length).toBe(6);
+			expect(userProfile.aggregatedDislikedTypes.length).toBe(0);
+		})
+
+		it("should have 3 liked and 3 disliked on this run", function(){
+			var testData = [
+				{
+					place: "1",
+					type: ["a", "b", "c"],
+					liked: true
+				},
+				{
+					place: "2",
+					type: ["d", "e", "f"],
+					liked: false
+				},
+				{
+					place: "3",
+					type: ["a", "c", "b"],
+					liked: true
+				},
+				{
+					place: "4",
+					type: ["d", "e", "f"],
+					liked: false
+				}
+			];
+			var userProfile = $scope.buildUserProfile(testData, []);
+			console.log(userProfile);
+			expect(userProfile.aggregateLikedTypes.length).toBe(3);
+			expect(userProfile.aggregatedDislikedTypes.length).toBe(3);
+		})
+	});
+
+	describe("Get Details of a place properly", function(){
+
+		it("should check for undefined name", function(){
+			var details = $scope.getDetailsOfPlace({
+				vicinity: "a",
+				photos: [
+					{
+						getUrl: function(dimensions){
+							return "b.jpg"
+						}
+					}
+				]
+			})
+
+			expect(details.name).toBe("");
+			expect(details.vicinity).toBe("a");
+			expect(details.photo).toBe("b.jpg");
+		})
+
+		it("should return a proper object", function(){
+			var details = $scope.getDetailsOfPlace({
+				name: "test",
+				vicinity: "a",
+				photos: [
+					{
+						getUrl: function(dimensions){
+							return "b.jpg"
+						}
+					}
+				]
+			})
+
+			expect(details.name).toBe("test");
+			expect(details.vicinity).toBe("a");
+			expect(details.photo).toBe("b.jpg");
+		})
+	})
+
+	describe("Properly Process Results", function(){
+		it("should properly process a like", function(){
+			var oldUserProfile = Object.create($scope.userProfile);
+			$scope.userProfile = {
+				aggregateLikedTypes: ["a", "b", "c"],
+				aggregatedDislikedTypes: ["d", "e", "f"],
+				meanLikedRating: 3.5
+			}
+
+			var result = $scope.processResult({
+				types:["a", "b", "d"],
+				rating: 5
+			})
+
+			$scope.userProfile = oldUserProfile;
+
+			expect(result).toBe("LIKE");
+		})
+
+		it("should properly process a dislike", function(){
+			var oldUserProfile = Object.create($scope.userProfile);
+			$scope.userProfile = {
+				aggregateLikedTypes: ["a", "b", "c"],
+				aggregatedDislikedTypes: ["d", "e", "f"],
+				meanLikedRating: 3.5
+			}
+
+			var result = $scope.processResult({
+				types:["d", "e", "f"],
+				rating: 2
+			})
+
+			$scope.userProfile = oldUserProfile;
+
+			expect(result).toBe("DISLIKE");
+		})
+	})
+	
 }])
